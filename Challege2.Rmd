@@ -1,0 +1,39 @@
+---
+title: "Challenge #2"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Choosing low-quality associations
+Here I will show how to create a filtered subset of data.  
+Below, you will see the R script used to generate a new table from associations.tsv.  
+
+```{r data}
+associations <- read.csv("trpv1.tsv", sep="\t")
+colnames(associations)[colnames(associations) == "X0.999"] <- "comb_score"
+low_quality <- subset(associations, comb_score < 0.5)
+new_file <- low_quality[,c(1,2,15)]
+# Now let's see the filtered subset of our data
+View(new_file)
+
+```
+
+**The original challenge was**
+
+  Create an R script that ….  
+ * Extracts all the low quality associations (combined score (last column) less than 0.5).  
+ * Writes/saves the first two columns (node1 and node2 columns) and the combined scores column (last column), as a separate file.  
+ * Modify this script as an R markdown file.  
+ * Generate a HTML of this R markdown contents.  
+ 
+ Let's see the filtered subset of our data...  
+```{r associations, echo=FALSE}
+print(new_file)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
